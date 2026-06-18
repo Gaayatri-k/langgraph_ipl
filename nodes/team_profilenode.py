@@ -1,12 +1,19 @@
 from vectorstore import get_vectorstore
 
-def team_node(state):
+def team_profile_node(state):
+
     db = get_vectorstore()
 
     docs = db.similarity_search(
         state["user_query"],
         k=3
     )
+
+    print("\n=== TEAM PROFILE DOCS ===")
+
+    for i, doc in enumerate(docs):
+        print(f"\nDOC {i+1}")
+        print(doc.page_content[:500])
 
     state["team_context"] = docs
 

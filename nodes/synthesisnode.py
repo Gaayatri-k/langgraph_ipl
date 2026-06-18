@@ -14,6 +14,7 @@ def synthesis_node(state):
     context = ""
 
     for key in [
+        "team_context",
         "batting_context",
         "bowling_context",
         "h2h_context",

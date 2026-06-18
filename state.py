@@ -13,6 +13,7 @@ class IPLState(TypedDict):
     h2h_context: List[Document]
     venue_context: List[Document]
     form_context: List[Document]
-    records_context: List[Document]   # <- add this
+    records_context: List[Document]   
+    team_context: List[Document]
 
     final_answer: str
