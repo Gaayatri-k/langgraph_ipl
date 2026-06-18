@@ -1,16 +1,18 @@
-from vectorstore import db
+from vectorstore import get_vectorstore
 
 def venue_node(state):
-    retriever = db.as_retriever(
-        search_kwargs={
-            "k":3
-        }
+
+    db = get_vectorstore()
+
+    docs = db.similarity_search(
+        state["user_query"],
+        k=1
     )
-    docs = retriever.invoke(
-        state["query"]
-    )
-    state["venue_context"] = "\n".join(
-        [d.page_content for d in docs]
-    )
+    print("\n=== RETRIEVED DOCS ===")
+
+    for i, doc in enumerate(docs):
+        print(f"\nDOC {i+1}")
+        print(doc.page_content[:300])
+    state["venue_context"] = docs
 
     return state

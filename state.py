@@ -1,12 +1,18 @@
-from typing import TypedDict
+from typing import TypedDict, List
+from langchain_core.documents import Document
 
 class IPLState(TypedDict):
-    query: str
+
+    user_query: str
+
     query_type: str
-    team_context: str
-    batting_context: str
-    bowling_context: str
-    h2h_context: str
-    venue_context: str
-    records_context: str
-    answer: str
+    entities: List[str]
+
+    batting_context: List[Document]
+    bowling_context: List[Document]
+    h2h_context: List[Document]
+    venue_context: List[Document]
+    form_context: List[Document]
+    records_context: List[Document]   # <- add this
+
+    final_answer: str

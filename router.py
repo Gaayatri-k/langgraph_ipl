@@ -1,37 +1,17 @@
 def router(state):
-    q = state["query"].lower()
 
-    team_map = {
-        "mi": "Mumbai Indians",
-        "csk": "Chennai Super Kings",
-        "rcb": "Royal Challengers Bengaluru",
-        "gt": "Gujarat Titans"
-    }
+    query = state["user_query"].lower()
 
-    # ENTITY DETECTION FIRST
-    for key in team_map:
-        if key in q:
-            state["entity"] = team_map[key]
-            state["query_type"] = "team"
-            return state
+    if "runs" in query:
+        return "batting"
 
-    # KEYWORD ROUTING
-    if "captain" in q or "team" in q:
-        state["query_type"] = "team"
+    if "wickets" in query:
+        return "bowling"
 
-    elif "runs" in q or "strike rate" in q:
-        state["query_type"] = "batting"
+    if "pitch" in query:
+        return "venue"
 
-    elif "wickets" in q or "economy" in q:
-        state["query_type"] = "bowling"
+    if "vs" in query:
+        return "h2h"
 
-    elif "vs" in q:
-        state["query_type"] = "h2h"
-
-    elif "pitch" in q or "stadium" in q:
-        state["query_type"] = "venue"
-
-    else:
-        state["query_type"] = "records"
-
-    return state
+    return "records"
