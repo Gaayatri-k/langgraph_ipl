@@ -6,9 +6,9 @@ def team_profile_node(state):
 
     docs = db.similarity_search(
         state["user_query"],
-        k=3
+        k=3,
+        filter={"section": "team"}
     )
-
     print("\n=== TEAM PROFILE DOCS ===")
 
     for i, doc in enumerate(docs):

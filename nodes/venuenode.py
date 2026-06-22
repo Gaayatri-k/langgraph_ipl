@@ -6,7 +6,8 @@ def venue_node(state):
 
     docs = db.similarity_search(
         state["user_query"],
-        k=1
+        k=3,
+        filter={"section": "venue"}
     )
     print("\n=== RETRIEVED DOCS ===")
 

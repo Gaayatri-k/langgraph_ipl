@@ -6,7 +6,8 @@ def records_node(state):
 
     docs = db.similarity_search(
         state["user_query"],
-        k=1
+        k=1,
+        filter={"section": "records"}
     )
 
     print("\n=== RETRIEVED DOCS ===")

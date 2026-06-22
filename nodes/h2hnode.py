@@ -6,7 +6,8 @@ def h2h_node(state):
 
     docs = db.similarity_search(
         state["user_query"],
-        k=1
+        k=3,
+        filter={"section": "h2h"}
     )
 
     print("\n=== RETRIEVED DOCS ===")
