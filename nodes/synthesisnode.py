@@ -53,7 +53,8 @@ Rules:
    - Use bullet points.
    - Do not add opinions unless directly supported by data.
 4. For fact questions:
-   - Return exact values only.
+   - Return the complete record.
+   - Include category, player/team, and value.
 5. If answer is not present:
    - Return exactly:
      'I could not find the answer in the IPL dataset.'
