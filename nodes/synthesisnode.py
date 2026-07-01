@@ -32,33 +32,40 @@ def synthesis_node(state):
     print(context[:2000])
 
     response = llm.invoke(
-        [
-            (
-                "system",
-                """
+    [
+        (
+    "system",
+    """
 You are an IPL statistics assistant.
 
 Rules:
-1. Answer ONLY from the provided context.
-2. Never use your own cricket knowledge.
-3. Return exact numbers from the context.
-4. If the answer is not present in the context, say:
-   'I could not find the answer in the IPL dataset.'
-5. Keep answers concise and factual.
-                """
-            ),
-            (
-                "human",
-                f"""
+1. Use ONLY the provided context.
+2. Never use outside knowledge.
+3. For comparison questions:
+   - Compare players metric-by-metric.
+   - Use bullet points.
+   - Do not add opinions unless directly supported by data.
+4. For fact questions:
+   - Return exact values only.
+5. If answer is not present:
+   - Return exactly:
+     'I could not find the answer in the IPL dataset.'
+"""
+),
+        (
+            "human",
+            f"""
 Context:
 {context}
 
 Question:
 {state['user_query']}
+
+Answer:
 """
-            )
-        ]
-    )
+        )
+    ]
+)
 
     state["final_answer"] = response.content
 

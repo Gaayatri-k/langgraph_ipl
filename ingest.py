@@ -10,8 +10,12 @@ loader = PyPDFLoader(
 docs = loader.load()
 
 print("Pages:", len(docs))
-print("\nFIRST PAGE:\n")
-print(docs[0].page_content[:1000])
+
+for doc in docs:
+    print("\n" + "=" * 80)
+    print(f"PAGE {doc.metadata['page']}")
+    print("=" * 80)
+    print(doc.page_content[:300])
 
 splitter = RecursiveCharacterTextSplitter(
     chunk_size=1000,
@@ -24,37 +28,48 @@ processed_chunks = []
 
 for chunk in chunks:
 
-    text = chunk.page_content.lower()
+    page = chunk.metadata["page"]
 
     section = "unknown"
 
-    if "team profile" in text:
+    if page == 1:
         section = "team"
 
-    elif "batting" in text:
+    elif page == 2:
         section = "batting"
 
-    elif "bowling" in text:
+    elif page == 3:
         section = "bowling"
 
-    elif "head-to-head" in text or "h2h" in text:
+    elif page == 4:
         section = "h2h"
 
-    elif "venue" in text:
+    elif page in [5, 6]:
         section = "venue"
 
-    elif "record" in text or "milestone" in text:
-        section = "records"
+    elif page == 7:
+        section = "trend"
 
-    elif "form" in text:
+    elif page == 8:
         section = "form"
 
-    elif "trend" in text:
-        section = "trend"
+    elif page == 9:
+        section = "records"
+
+    else:
+        section = "ignore"
 
     chunk.metadata["section"] = section
 
     processed_chunks.append(chunk)
+    
+print("\n=== PAGE -> SECTION ===")
+
+for chunk in processed_chunks[:20]:
+    print(
+        f"Page={chunk.metadata['page']} | "
+        f"Section={chunk.metadata['section']}"
+    )
 
 print("\n=== SAMPLE METADATA ===")
 

@@ -6,7 +6,7 @@ def bowling_node(state):
 
     docs = db.similarity_search(
         state["user_query"],
-        k=3,
+        k=5,
         filter={"section": "bowling"}
     )
     print("\n=== RETRIEVED DOCS ===")
