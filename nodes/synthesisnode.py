@@ -1,4 +1,6 @@
 from dotenv import load_dotenv
+
+import state
 load_dotenv()
 
 import os
@@ -12,7 +14,8 @@ llm = ChatGroq(
 def synthesis_node(state):
 
     context = ""
-
+    print("\n=== STATE KEYS ===")
+    print(state.keys())
     for key in [
         "team_context",
         "batting_context",
@@ -20,13 +23,17 @@ def synthesis_node(state):
         "h2h_context",
         "venue_context",
         "form_context",
+        "trend_context", 
         "records_context"
     ]:
-
         docs = state.get(key, [])
+
+        print(f"\n{key} -> {len(docs)} docs")
 
         for doc in docs:
             context += doc.page_content + "\n"
+
+            docs = state.get(key, [])
 
     print("\n=== CONTEXT SENT TO LLM ===")
     print(context[:2000])

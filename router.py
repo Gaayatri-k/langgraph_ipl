@@ -15,6 +15,21 @@ def router(state):
         "gt","gujarat"
     ]
 
+    # Trend Queries
+    if any(word in query for word in [
+        "trend",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "consistent",
+        "improved",
+        "performance over years"
+    ]):
+        return "trend"
+
     # Team profile queries
     if any(team in query for team in teams):
         return "team"
@@ -54,6 +69,7 @@ def router(state):
         "gaikwad"
     ]):
         return "batting"
+    
 
     # H2H queries
     if "vs" in query:
@@ -67,4 +83,13 @@ def router(state):
     ]):
         return "venue"
 
-    return "records"
+    #record queries
+    if any(word in query for word in [
+        "record",
+        "highest",
+        "most",
+        "fastest",
+        "best bowling",
+        "milestone"
+    ]):
+        return "records"

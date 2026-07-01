@@ -13,7 +13,8 @@ class IPLState(TypedDict):
     h2h_context: List[Document]
     venue_context: List[Document]
     form_context: List[Document]
-    records_context: List[Document]   
+    records_context: List[Document] 
+    trend_context: list[Document]  
     team_context: List[Document]
 
     final_answer: str

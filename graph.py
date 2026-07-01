@@ -1,6 +1,7 @@
 from langgraph.graph import StateGraph, END
 
 
+
 from state import IPLState
 from router import router
 
@@ -12,6 +13,7 @@ from nodes.venuenode import venue_node
 from nodes.recordsnode import records_node
 from nodes.synthesisnode import synthesis_node
 from nodes.formnode import form_node
+from nodes.trendnode import trend_node
 
 graph = StateGraph(IPLState)
 
@@ -22,6 +24,7 @@ graph.add_node("h2h", h2h_node)
 graph.add_node("venue", venue_node)
 graph.add_node("records", records_node)
 graph.add_node("synthesis", synthesis_node)
+graph.add_node("trend", trend_node)
 graph.add_node("form",form_node)
 
 graph.set_conditional_entry_point(
@@ -33,7 +36,8 @@ graph.set_conditional_entry_point(
         "h2h": "h2h",
         "venue": "venue",
         "records": "records",
-        "form": "form"
+        "form": "form",
+        "trend": "trend"
     }
 )
 
@@ -43,6 +47,7 @@ graph.add_edge("bowling", "synthesis")
 graph.add_edge("h2h", "synthesis")
 graph.add_edge("venue", "synthesis")
 graph.add_edge("records", "synthesis")
+graph.add_edge("trend", "synthesis")
 graph.add_edge("form","synthesis")
 
 graph.add_edge("synthesis", END)
